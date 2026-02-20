@@ -1,0 +1,31 @@
+# fly.toml app configuration file generated for squadklaw-directory on 2026-02-20T16:04:44-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'squadklaw-directory'
+primary_region = 'sjc'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  PORT = '3141'
+  DB_PATH = '/data/squadklaw.db'
+
+[mounts]
+  source = 'squadklaw_data'
+  destination = '/data'
+
+[http_service]
+  internal_port = 3141
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
