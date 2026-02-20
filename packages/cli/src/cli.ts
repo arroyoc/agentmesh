@@ -9,6 +9,7 @@ import { discoverCommand } from "./commands/discover.js";
 import { sendCommand } from "./commands/send.js";
 import { serveCommand } from "./commands/serve.js";
 import { directoryCommand } from "./commands/directory.js";
+import { demoCommand } from "./commands/demo.js";
 
 const program = new Command();
 
@@ -64,5 +65,10 @@ program
   .description("Start a local directory server")
   .option("-p, --port <port>", "Port to listen on", "3141")
   .action(directoryCommand);
+
+program
+  .command("demo")
+  .description("Run a live demo: two agents negotiate a meeting over the network")
+  .action(demoCommand);
 
 program.parse();
