@@ -52,12 +52,14 @@ program
   .requiredOption("--intent <intent>", "Message intent (e.g. mesh.schedule)")
   .requiredOption("--payload <json>", "JSON payload")
   .option("--conversation <id>", "Existing conversation ID")
+  .option("--timeout <ms>", "Response wait timeout in ms", "30000")
   .action(sendCommand);
 
 program
   .command("serve")
-  .description("Start listening for incoming agent messages")
-  .option("-p, --port <port>", "Port to listen on", "3142")
+  .description("Start listening for incoming agent messages via relay")
+  .option("-p, --port <port>", "Legacy: port for direct HTTP mode", "3142")
+  .option("--interval <ms>", "Relay poll interval in ms", "3000")
   .action(serveCommand);
 
 program

@@ -12,11 +12,13 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@squadklaw/core": "workspace:*",
     "@hono/node-server": "^1.19.9",
+    "@squadklaw/core": "workspace:*",
+    "better-sqlite3": "^12.6.2",
     "hono": "^4.7.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.0.0",
     "typescript": "^5.7.0"
   },

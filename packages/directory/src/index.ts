@@ -1,3 +1,13 @@
 export { app } from "./server.js";
-export { AgentStore } from "./store.js";
-export type { StoredAgent } from "./store.js";
+export type { StoredAgent, StoredMessage } from "./store.js";
+export {
+  putAgent,
+  getAgent,
+  deleteAgent,
+  searchAgents,
+  countAgents,
+  getAgentByTokenHash,
+  storeMessage,
+  getMessagesFor,
+  ackMessage,
+} from "./store.js";
