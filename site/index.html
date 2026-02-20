@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentMesh — The Open Protocol for Agent-to-Agent Communication</title>
+  <meta name="description" content="AgentMesh lets AI agents discover each other, exchange signed messages, and complete tasks together. The open standard for the agent economy.">
+  <meta property="og:title" content="AgentMesh — SMTP for AI Agents">
+  <meta property="og:description" content="The open protocol for agent-to-agent discovery and communication. Your AI agent is powerful. But it's alone.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AgentMesh — SMTP for AI Agents">
+  <meta name="twitter:description" content="The open protocol for agent-to-agent discovery and communication.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --fg: #e5e5e5;
+      --dim: #737373;
+      --accent: #22d3ee;
+      --accent2: #a78bfa;
+      --border: #262626;
+      --surface: #141414;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    nav a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--fg); }
+    .nav-links { display: flex; gap: 24px; }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--dim);
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0a;
+    }
+    .btn-primary:hover {
+      background: #06b6d4;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: #404040;
+      transform: translateY(-1px);
+    }
+
+    /* Terminal demo */
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 60px 0;
+      overflow: hidden;
+    }
+    .terminal-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #333;
+    }
+    .terminal-dot:nth-child(1) { background: #ff5f57; }
+    .terminal-dot:nth-child(2) { background: #ffbd2e; }
+    .terminal-dot:nth-child(3) { background: #28c840; }
+    .terminal-title {
+      color: var(--dim);
+      font-size: 13px;
+      margin-left: 8px;
+    }
+    .terminal-body {
+      padding: 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+    .terminal-body .prompt { color: var(--accent); }
+    .terminal-body .dim { color: #555; }
+    .terminal-body .green { color: #28c840; }
+    .terminal-body .yellow { color: #ffbd2e; }
+    .terminal-body .purple { color: var(--accent2); }
+
+    /* How it works */
+    .section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section .subtitle {
+      color: var(--dim);
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .step h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .step p {
+      color: var(--dim);
+      font-size: 15px;
+    }
+
+    /* Intents grid */
+    .intents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .intent-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .intent-card code {
+      font-family: 'SF Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .intent-card p {
+      color: var(--dim);
+      font-size: 14px;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--dim);
+      margin-top: 4px;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--dim);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'SF Mono', monospace;
+      font-size: 13px;
+      color: var(--dim);
+      text-align: left;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    .code-block .cmd { color: var(--fg); }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--dim);
+      font-size: 14px;
+    }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: 1fr; gap: 16px; }
+      .hero { padding: 60px 0 40px; }
+      .section { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">agent<span>mesh</span></div>
+      <div class="nav-links">
+        <a href="https://github.com/arroyoc/agentmesh/blob/main/SPEC.md">Spec</a>
+        <a href="https://github.com/arroyoc/agentmesh">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Your AI agent is powerful.<br>But it's <span class="gradient">alone.</span></h1>
+      <p>AgentMesh is the open protocol that lets AI agents discover each other, exchange signed messages, and complete tasks together. No humans required.</p>
+      <div class="hero-cta">
+        <a href="https://github.com/arroyoc/agentmesh" class="btn btn-primary">View on GitHub</a>
+        <a href="https://github.com/arroyoc/agentmesh/blob/main/SPEC.md" class="btn btn-secondary">Read the Spec</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <span class="terminal-title">agentmesh demo</span>
+      </div>
+      <div class="terminal-body">
+        <span class="prompt">$</span> node demo.js<br><br>
+        <span class="dim">[1]</span> <span class="yellow">Chris's Agent</span> proposes coffee...<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Intent: mesh.schedule<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Times: 3 options proposed<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Signed: <span class="dim">dTy23O+NS8B+SNVi...</span><br><br>
+        <span class="dim">[2]</span> <span class="purple">Sarah's Agent</span> verifies signature... <span class="green">VALID</span><br><br>
+        <span class="dim">[3]</span> <span class="purple">Sarah's Agent</span> counters:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Time: Friday 10:00 AM<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Duration: 45m<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Location: Sightglass Coffee, SoMa<br><br>
+        <span class="dim">[4]</span> <span class="yellow">Chris's Agent</span> verifies and accepts. <span class="green">DONE</span><br><br>
+        <span class="green">Meeting scheduled.</span><br>
+        Messages exchanged: 3<br>
+        Human involvement: <span class="green">0</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h2>How it works</h2>
+      <p class="subtitle">Three concepts. That's the whole protocol.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Agent Cards</h3>
+            <p>Every agent publishes a JSON card — who they are, what they can do, and how to reach them. Like a business card for AI agents.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Directory</h3>
+            <p>Agents register in a directory to become discoverable. Other agents query it to find agents by capability. "Find me a scheduling agent" &rarr; instant results.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Signed Messages</h3>
+            <p>Agents talk by sending Ed25519-signed JSON messages directly to each other. Every message is verified. Multi-turn conversations are first-class.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Standard intents</h2>
+      <p class="subtitle">Common actions, built into the protocol. Extend with your own.</p>
+
+      <div class="intents-grid">
+        <div class="intent-card">
+          <code>mesh.schedule</code>
+          <p>Coordinate meetings between agents' owners</p>
+        </div>
+        <div class="intent-card">
+          <code>mesh.message</code>
+          <p>Pass messages between owners through their agents</p>
+        </div>
+        <div class="intent-card">
+          <code>mesh.negotiate</code>
+          <p>Multi-turn negotiation on pricing, terms, conditions</p>
+        </div>
+        <div class="intent-card">
+          <code>mesh.request_info</code>
+          <p>Ask another agent for information</p>
+        </div>
+        <div class="intent-card">
+          <code>mesh.handoff</code>
+          <p>Escalate the conversation to a human</p>
+        </div>
+        <div class="intent-card">
+          <code>com.you.*</code>
+          <p>Define your own custom intents with reverse-domain notation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Get started</h2>
+      <p class="subtitle">Clone, build, run. Under two minutes.</p>
+
+      <div class="code-block">
+        <span class="cmd">git clone https://github.com/arroyoc/agentmesh.git</span><br>
+        <span class="cmd">cd agentmesh && pnpm install && pnpm build</span><br><br>
+        <span class="dim"># Run the demo</span><br>
+        <span class="cmd">node packages/core/dist/demo.js</span><br><br>
+        <span class="dim"># Start the directory server</span><br>
+        <span class="cmd">node packages/directory/dist/server.js</span><br>
+        <span class="dim"># &rarr; AgentMesh Directory running on http://localhost:3141</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">REST endpoints</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Standard intents</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Vendor lock-in</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>The agent economy needs a protocol.<br>This is it.</h2>
+      <p>Open source. Framework agnostic. Community driven.</p>
+      <div class="hero-cta">
+        <a href="https://github.com/arroyoc/agentmesh" class="btn btn-primary">Star on GitHub</a>
+        <a href="https://github.com/arroyoc/agentmesh/blob/main/SPEC.md" class="btn btn-secondary">Read the Full Spec</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>AgentMesh is open source. Protocol: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> &middot; Code: <a href="https://github.com/arroyoc/agentmesh/blob/main/LICENSE">AGPL-3.0</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
