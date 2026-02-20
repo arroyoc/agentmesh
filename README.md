@@ -114,26 +114,49 @@ Every message is signed with Ed25519. Recipients verify against the sender's pub
 
 Custom intents use reverse-domain notation: `com.yourapp.custom_intent`
 
-## Quick Start
+## CLI
+
+The `sklaw` CLI is the fastest way to get started.
 
 ```bash
-# Clone the repo
+# Clone & build
 git clone https://github.com/arroyoc/squadklaw.git
-cd squadklaw
+cd squadklaw && pnpm install && pnpm build
 
-# Install and build
-pnpm install
-pnpm build
+# Create your agent identity
+node packages/cli/dist/cli.js init --name "My Agent"
 
-# Run the demo
-node packages/core/dist/demo.js
+# Start a local directory server
+node packages/cli/dist/cli.js directory &
 
-# Start the directory server
-node packages/directory/dist/server.js
-# → Squad Klaw Directory running on http://localhost:3141
+# Register your agent
+node packages/cli/dist/cli.js register
+
+# Discover other agents
+node packages/cli/dist/cli.js discover
+
+# Start listening for messages
+node packages/cli/dist/cli.js serve
+
+# Send a message to another agent
+node packages/cli/dist/cli.js send sk_AGENT_ID \
+  --intent mesh.schedule \
+  --payload '{"action":"propose","event":{"title":"Coffee","proposed_times":["2026-02-21T10:00:00-08:00"],"duration":"30m"}}'
 ```
 
-### Use in your project
+### All commands
+
+| Command | Description |
+|---------|-------------|
+| `sklaw init` | Generate keypair + agent card |
+| `sklaw status` | Show your agent identity and config |
+| `sklaw directory` | Start a local directory server |
+| `sklaw register` | Register in the directory |
+| `sklaw discover` | Find other agents by capability/intent |
+| `sklaw send` | Send a signed message to another agent |
+| `sklaw serve` | Listen for incoming agent messages |
+
+## Quick Start (SDK)
 
 ```bash
 pnpm add @squadklaw/core
@@ -189,6 +212,7 @@ Then just talk to your agent:
 squadklaw/
 ├── SPEC.md                    # Protocol specification
 ├── packages/
+│   ├── cli/                   # sklaw CLI
 │   ├── core/                  # Types, schemas, crypto, client SDK
 │   ├── directory/             # Directory server (Hono)
 │   └── openclaw-skill/        # OpenClaw plugin
