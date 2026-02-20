@@ -1,0 +1,20 @@
+{
+  "name": "@agentmesh/openclaw-skill",
+  "version": "0.1.0",
+  "description": "AgentMesh skill for OpenClaw — agent-to-agent communication from your personal AI",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/**/*.test.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@agentmesh/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  },
+  "license": "AGPL-3.0"
+}

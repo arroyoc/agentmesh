@@ -1,0 +1,24 @@
+{
+  "name": "agentmesh",
+  "version": "0.1.0",
+  "description": "Open protocol for agent-to-agent discovery and communication",
+  "private": true,
+  "packageManager": "pnpm@10.28.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "AGPL-3.0"
+}

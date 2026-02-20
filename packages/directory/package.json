@@ -1,0 +1,24 @@
+{
+  "name": "@agentmesh/directory",
+  "version": "0.1.0",
+  "description": "AgentMesh directory server — agent registration and discovery",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "node --watch dist/server.js",
+    "start": "node dist/server.js",
+    "test": "node --test dist/**/*.test.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@agentmesh/core": "workspace:*",
+    "@hono/node-server": "^1.19.9",
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  },
+  "license": "AGPL-3.0"
+}
