@@ -1,5 +1,5 @@
 /**
- * AgentMesh Demo: Two agents negotiate a coffee meeting.
+ * Squad Klaw Demo: Two agents negotiate a coffee meeting.
  *
  * Run:
  *   node dist/demo.js
@@ -22,7 +22,7 @@ import type { AgentCard, Message, ScheduleProposal, ScheduleCounter } from "./in
 
 // ── Setup ──────────────────────────────────────────────
 
-console.log("\n  AgentMesh Demo: Agent-to-Agent Scheduling\n");
+console.log("\n  Squad Klaw Demo: Agent-to-Agent Scheduling\n");
 console.log("  Two AI agents negotiate a coffee meeting.\n");
 console.log("  ─".repeat(25) + "\n");
 
@@ -31,22 +31,22 @@ const keysA = generateKeyPair();
 const keysB = generateKeyPair();
 
 const agentA: AgentCard = {
-  agentmesh: "0.1.0",
+  squadklaw: "0.1.0",
   agent_id: agentId(),
   name: "Chris's Agent",
   description: "Personal assistant for Chris",
-  endpoint: "https://chris-agent.local/agentmesh",
+  endpoint: "https://chris-agent.local/squadklaw",
   public_key: keysA.publicKey,
   capabilities: ["scheduling", "communication"],
   intents: [STANDARD_INTENTS.SCHEDULE, STANDARD_INTENTS.MESSAGE],
 };
 
 const agentB: AgentCard = {
-  agentmesh: "0.1.0",
+  squadklaw: "0.1.0",
   agent_id: agentId(),
   name: "Sarah's Agent",
   description: "Personal assistant for Sarah",
-  endpoint: "https://sarah-agent.local/agentmesh",
+  endpoint: "https://sarah-agent.local/squadklaw",
   public_key: keysB.publicKey,
   capabilities: ["scheduling", "communication", "research"],
   intents: [STANDARD_INTENTS.SCHEDULE, STANDARD_INTENTS.MESSAGE],
@@ -62,7 +62,7 @@ console.log("  [1] Agent A proposes coffee...\n");
 const convId = conversationId();
 
 const proposal: Omit<Message, "signature"> = {
-  agentmesh: "0.1.0",
+  squadklaw: "0.1.0",
   message_id: messageId(),
   conversation_id: convId,
   from: agentA.agent_id,
@@ -113,7 +113,7 @@ if (!verified) {
 console.log("\n  [3] Agent B counters (prefers 10am, longer meeting, has a spot)...\n");
 
 const counter: Omit<Message, "signature"> = {
-  agentmesh: "0.1.0",
+  squadklaw: "0.1.0",
   message_id: messageId(),
   conversation_id: convId,
   from: agentB.agent_id,
@@ -151,7 +151,7 @@ const verified2 = verifyMessage(
 console.log(`      Valid:   ${verified2 ? "YES" : "FAILED"}`);
 
 const accept: Omit<Message, "signature"> = {
-  agentmesh: "0.1.0",
+  squadklaw: "0.1.0",
   message_id: messageId(),
   conversation_id: convId,
   from: agentA.agent_id,

@@ -1,4 +1,4 @@
-# AgentMesh Protocol Specification
+# Squad Klaw Protocol Specification
 
 **Version:** 0.1.0-draft
 **Status:** Draft
@@ -8,13 +8,13 @@
 
 ## 1. Overview
 
-AgentMesh is an open protocol for agent-to-agent discovery, communication, and negotiation. It enables AI agents (OpenClaw, custom agents, or any compliant implementation) to find each other, exchange structured messages, and complete multi-turn tasks on behalf of their owners — without human intervention.
+Squad Klaw is an open protocol for agent-to-agent discovery, communication, and negotiation. It enables AI agents (OpenClaw, custom agents, or any compliant implementation) to find each other, exchange structured messages, and complete multi-turn tasks on behalf of their owners — without human intervention.
 
-AgentMesh is to AI agents what SMTP was to email: a simple, open standard that lets independently operated agents interoperate.
+Squad Klaw is to AI agents what SMTP was to email: a simple, open standard that lets independently operated agents interoperate.
 
 ### Design Principles
 
-- **Simple by default.** JSON over HTTPS. If you can make an API call, you can implement AgentMesh.
+- **Simple by default.** JSON over HTTPS. If you can make an API call, you can implement Squad Klaw.
 - **Owner-first.** Agents never act beyond the permissions their owner has granted. Every interaction is auditable.
 - **Decentralized-capable, centralized-friendly.** Works with a hosted directory or self-hosted/peer-to-peer discovery.
 - **Agent-framework agnostic.** Built for OpenClaw, but any agent platform can implement the spec.
@@ -31,7 +31,7 @@ Every agent on the network publishes an **Agent Card** — a JSON document descr
 
 The **Directory** is a registry of Agent Cards. Agents register themselves to become discoverable. Other agents query the directory to find agents by capability, location, or identity.
 
-The reference directory is hosted at `directory.agentmesh.dev`. Anyone can run their own.
+The reference directory is hosted at `directory.squadklaw.dev`. Anyone can run their own.
 
 ### Messages
 
@@ -51,15 +51,15 @@ An **Intent** is a standardized action type. Intents let agents understand what 
 
 ```json
 {
-  "agentmesh": "0.1.0",
-  "agent_id": "am_7f3a2b1c9d4e",
+  "squadklaw": "0.1.0",
+  "agent_id": "sk_7f3a2b1c9d4e",
   "name": "Chris's Assistant",
   "description": "Personal agent for Chris. Handles scheduling, communication, and research.",
   "owner": {
     "name": "Chris",
     "contact": "chris@example.com"
   },
-  "endpoint": "https://chris-agent.example.com/agentmesh",
+  "endpoint": "https://chris-agent.example.com/squadklaw",
   "public_key": "age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p",
   "capabilities": [
     "scheduling",
@@ -89,8 +89,8 @@ An **Intent** is a standardized action type. Intents let agents understand what 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `agentmesh` | string | Protocol version |
-| `agent_id` | string | Unique agent identifier, prefixed `am_` |
+| `squadklaw` | string | Protocol version |
+| `agent_id` | string | Unique agent identifier, prefixed `sk_` |
 | `name` | string | Human-readable agent name |
 | `endpoint` | string | HTTPS URL where this agent receives messages |
 | `public_key` | string | Public key for message verification (age, ed25519, or PGP) |
@@ -110,7 +110,7 @@ An **Intent** is a standardized action type. Intents let agents understand what 
 
 ## 4. Directory API
 
-Base URL: `https://directory.agentmesh.dev/v1`
+Base URL: `https://directory.squadklaw.dev/v1`
 
 ### Register an Agent
 
@@ -125,7 +125,7 @@ Content-Type: application/json
 **Response:** `201 Created`
 ```json
 {
-  "agent_id": "am_7f3a2b1c9d4e",
+  "agent_id": "sk_7f3a2b1c9d4e",
   "registered_at": "2026-02-19T10:30:00Z",
   "expires_at": "2026-03-19T10:30:00Z"
 }
@@ -184,11 +184,11 @@ Agents communicate by sending signed messages directly to each other's `endpoint
 
 ```json
 {
-  "agentmesh": "0.1.0",
+  "squadklaw": "0.1.0",
   "message_id": "msg_a1b2c3d4e5f6",
   "conversation_id": "conv_9z8y7x6w5v4u",
-  "from": "am_7f3a2b1c9d4e",
-  "to": "am_8g4b3c2d1e5f",
+  "from": "sk_7f3a2b1c9d4e",
+  "to": "sk_8g4b3c2d1e5f",
   "timestamp": "2026-02-19T10:35:00Z",
   "intent": "mesh.schedule",
   "payload": {
@@ -236,11 +236,11 @@ The recipient agent responds synchronously:
 
 ```json
 {
-  "agentmesh": "0.1.0",
+  "squadklaw": "0.1.0",
   "message_id": "msg_f6e5d4c3b2a1",
   "conversation_id": "conv_9z8y7x6w5v4u",
-  "from": "am_8g4b3c2d1e5f",
-  "to": "am_7f3a2b1c9d4e",
+  "from": "sk_8g4b3c2d1e5f",
+  "to": "sk_7f3a2b1c9d4e",
   "timestamp": "2026-02-19T10:35:02Z",
   "intent": "mesh.schedule",
   "payload": {
@@ -373,8 +373,8 @@ Before an agent can send messages to another agent, the **recipient** must be re
 {
   "access_control": {
     "mode": "open | allowlist | approval",
-    "allowlist": ["am_...", "am_..."],
-    "block": ["am_..."]
+    "allowlist": ["sk_...", "sk_..."],
+    "block": ["sk_..."]
   }
 }
 ```
@@ -437,17 +437,17 @@ Standard error response:
 
 ## 9. OpenClaw Integration
 
-AgentMesh ships as an OpenClaw skill:
+Squad Klaw ships as an OpenClaw skill:
 
 ```bash
-openclaw skills add agentmesh
+openclaw skills add squadklaw
 ```
 
 This:
 1. Generates a keypair for the agent
 2. Registers the agent in the default directory
 3. Starts an HTTP listener for inbound messages
-4. Adds AgentMesh capabilities to the agent's tool set
+4. Adds Squad Klaw capabilities to the agent's tool set
 
 Once installed, the agent can natively:
 - Discover other agents: *"Find me a freelance designer's agent"*
@@ -467,7 +467,7 @@ Agent A queries the directory:
 GET /agents?q=sarah&capability=scheduling
 ```
 
-Gets back Agent B's card with endpoint `https://sarah-agent.example.com/agentmesh`.
+Gets back Agent B's card with endpoint `https://sarah-agent.example.com/squadklaw`.
 
 ### Step 2: Propose
 
@@ -476,8 +476,8 @@ Agent A sends:
 {
   "message_id": "msg_001",
   "conversation_id": "conv_coffee_01",
-  "from": "am_chris",
-  "to": "am_sarah",
+  "from": "sk_chris",
+  "to": "sk_sarah",
   "intent": "mesh.schedule",
   "payload": {
     "action": "propose",
@@ -500,8 +500,8 @@ Agent B checks Sarah's calendar. 10am works but she prefers 45 minutes:
 {
   "message_id": "msg_002",
   "conversation_id": "conv_coffee_01",
-  "from": "am_sarah",
-  "to": "am_chris",
+  "from": "sk_sarah",
+  "to": "sk_chris",
   "intent": "mesh.schedule",
   "payload": {
     "action": "counter",
@@ -521,8 +521,8 @@ Agent A checks Chris's preferences, accepts:
 {
   "message_id": "msg_003",
   "conversation_id": "conv_coffee_01",
-  "from": "am_chris",
-  "to": "am_sarah",
+  "from": "sk_chris",
+  "to": "sk_sarah",
   "intent": "mesh.schedule",
   "payload": {
     "action": "accept"
@@ -545,4 +545,4 @@ Total human involvement: **zero.**
 
 ---
 
-*AgentMesh is an open protocol. This specification is licensed under CC-BY-SA 4.0. Reference implementations are licensed under AGPL-3.0.*
+*Squad Klaw is an open protocol. This specification is licensed under CC-BY-SA 4.0. Reference implementations are licensed under AGPL-3.0.*

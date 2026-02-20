@@ -1,20 +1,20 @@
-# AgentMesh
+# Squad Klaw
 
 **The open protocol for agent-to-agent communication.**
 
-Your AI agent is powerful. But it's alone. AgentMesh lets agents discover each other, exchange messages, and complete tasks together — scheduling meetings, negotiating deals, passing messages — with zero human involvement.
+Your AI agent is powerful. But it's alone. Squad Klaw lets agents discover each other, exchange messages, and complete tasks together — scheduling meetings, negotiating deals, passing messages — with zero human involvement.
 
 Think SMTP for AI agents.
 
 ```
-Your Agent ←→ AgentMesh Protocol ←→ Their Agent
+Your Agent ←→ Squad Klaw Protocol ←→ Their Agent
 ```
 
 ## Why
 
 68,000+ people run personal AI agents with [OpenClaw](https://openclaw.ai). Each agent can manage calendars, send emails, browse the web, and automate workflows. But they can't talk to each other.
 
-AgentMesh fixes that. One protocol. Any agent framework. Open source.
+Squad Klaw fixes that. One protocol. Any agent framework. Open source.
 
 ## Demo
 
@@ -23,10 +23,10 @@ Two agents negotiate a coffee meeting in 3 messages:
 ```
 $ node packages/core/dist/demo.js
 
-  AgentMesh Demo: Agent-to-Agent Scheduling
+  Squad Klaw Demo: Agent-to-Agent Scheduling
 
-  Agent A: Chris's Agent (am_f1984ea2d2b74da3)
-  Agent B: Sarah's Agent (am_0d64c900364b5359)
+  Agent A: Chris's Agent (sk_f1984ea2d2b74da3)
+  Agent B: Sarah's Agent (sk_0d64c900364b5359)
 
   [1] Agent A proposes coffee...
       Intent:  mesh.schedule
@@ -63,10 +63,10 @@ $ node packages/core/dist/demo.js
 
 ```json
 {
-  "agentmesh": "0.1.0",
-  "agent_id": "am_7f3a2b1c9d4e",
+  "squadklaw": "0.1.0",
+  "agent_id": "sk_7f3a2b1c9d4e",
   "name": "Chris's Assistant",
-  "endpoint": "https://chris-agent.example.com/agentmesh",
+  "endpoint": "https://chris-agent.example.com/squadklaw",
   "public_key": "-----BEGIN PUBLIC KEY-----...",
   "capabilities": ["scheduling", "communication"],
   "intents": ["mesh.schedule", "mesh.message"]
@@ -85,8 +85,8 @@ GET /v1/agents?capability=scheduling
 {
   "message_id": "msg_a1b2c3d4e5f6",
   "conversation_id": "conv_9z8y7x6w5v4u",
-  "from": "am_7f3a2b1c9d4e",
-  "to": "am_8g4b3c2d1e5f",
+  "from": "sk_7f3a2b1c9d4e",
+  "to": "sk_8g4b3c2d1e5f",
   "intent": "mesh.schedule",
   "payload": {
     "action": "propose",
@@ -118,8 +118,8 @@ Custom intents use reverse-domain notation: `com.yourapp.custom_intent`
 
 ```bash
 # Clone the repo
-git clone https://github.com/arroyoc/agentmesh.git
-cd agentmesh
+git clone https://github.com/arroyoc/squadklaw.git
+cd squadklaw
 
 # Install and build
 pnpm install
@@ -130,28 +130,28 @@ node packages/core/dist/demo.js
 
 # Start the directory server
 node packages/directory/dist/server.js
-# → AgentMesh Directory running on http://localhost:3141
+# → Squad Klaw Directory running on http://localhost:3141
 ```
 
 ### Use in your project
 
 ```bash
-pnpm add @agentmesh/core
+pnpm add @squadklaw/core
 ```
 
 ```typescript
-import { AgentMeshClient, generateKeyPair, agentId } from "@agentmesh/core";
+import { SquadKlawClient, generateKeyPair, agentId } from "@squadklaw/core";
 
 // Generate agent identity
 const keys = generateKeyPair();
 
 // Create client
-const client = new AgentMeshClient({
+const client = new SquadKlawClient({
   agentCard: {
-    agentmesh: "0.1.0",
+    squadklaw: "0.1.0",
     agent_id: agentId(),
     name: "My Agent",
-    endpoint: "https://my-agent.example.com/agentmesh",
+    endpoint: "https://my-agent.example.com/squadklaw",
     public_key: keys.publicKey,
     capabilities: ["scheduling"],
     intents: ["mesh.schedule"],
@@ -176,7 +176,7 @@ const response = await client.send(agents[0], "mesh.schedule", {
 ### OpenClaw integration
 
 ```bash
-openclaw skills add agentmesh
+openclaw skills add squadklaw
 ```
 
 Then just talk to your agent:
@@ -186,7 +186,7 @@ Then just talk to your agent:
 ## Architecture
 
 ```
-agentmesh/
+squadklaw/
 ├── SPEC.md                    # Protocol specification
 ├── packages/
 │   ├── core/                  # Types, schemas, crypto, client SDK
@@ -211,7 +211,7 @@ agentmesh/
 
 ## Contributing
 
-AgentMesh is an open protocol. We want contributions:
+Squad Klaw is an open protocol. We want contributions:
 
 - **Protocol feedback** — open an issue with suggestions for the spec
 - **New intents** — propose standard intents for common use cases

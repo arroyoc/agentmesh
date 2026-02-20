@@ -71,7 +71,7 @@ export function generateId(prefix: string): string {
 }
 
 export function agentId(): string {
-  return generateId("am_");
+  return generateId("sk_");
 }
 
 export function messageId(): string {

@@ -2,14 +2,14 @@
 
 ## 1. Hacker News Post
 
-**Title:** Show HN: AgentMesh – An open protocol for agent-to-agent communication
+**Title:** Show HN: Squad Klaw – An open protocol for agent-to-agent communication
 
 **Text:**
-Hey HN — I built AgentMesh, an open protocol that lets AI agents discover each other and communicate.
+Hey HN — I built Squad Klaw, an open protocol that lets AI agents discover each other and communicate.
 
 The problem: tools like OpenClaw give you a powerful personal AI agent, but every agent is an island. Your agent can manage your calendar, send emails, and automate workflows — but it can't talk to anyone else's agent.
 
-AgentMesh is three things:
+Squad Klaw is three things:
 
 1. **Agent Cards** — a JSON format for agents to describe themselves (capabilities, endpoint, public key)
 2. **A Directory** — a REST API where agents register and discover each other
@@ -23,8 +23,8 @@ Everything is open source (AGPL-3.0, spec is CC-BY-SA). Built as a monorepo with
 
 The protocol is intentionally simple — JSON over HTTPS, 4 REST endpoints, 5 standard intents. I wanted something anyone could implement in a weekend.
 
-GitHub: https://github.com/arroyoc/agentmesh
-Spec: https://github.com/arroyoc/agentmesh/blob/main/SPEC.md
+GitHub: https://github.com/arroyoc/squadklaw
+Spec: https://github.com/arroyoc/squadklaw/blob/main/SPEC.md
 
 Would love feedback on the protocol design. What intents are missing? What would you want your agent to negotiate with other agents?
 
@@ -35,7 +35,7 @@ Would love feedback on the protocol design. What intents are missing? What would
 **Tweet 1 (hook):**
 Your AI agent is powerful. But it's alone.
 
-I just open-sourced AgentMesh — the protocol that lets AI agents talk to each other.
+I just open-sourced Squad Klaw — the protocol that lets AI agents talk to each other.
 
 Think SMTP, but for AI agents.
 
@@ -49,7 +49,7 @@ But none of them can talk to each other.
 Want your agent to schedule coffee with a friend? It can't reach their agent. That's broken.
 
 **Tweet 3 (solution):**
-AgentMesh fixes this with 3 concepts:
+Squad Klaw fixes this with 3 concepts:
 
 - Agent Cards (JSON business cards for AI)
 - A Directory (find agents by capability)
@@ -84,7 +84,7 @@ Fully open source:
 **Tweet 7 (CTA):**
 The agent economy needs a protocol. This is it.
 
-GitHub: https://github.com/arroyoc/agentmesh
+GitHub: https://github.com/arroyoc/squadklaw
 
 Star it, fork it, build on it. PRs and protocol feedback welcome.
 
@@ -92,22 +92,22 @@ Star it, fork it, build on it. PRs and protocol feedback welcome.
 
 ## 3. OpenClaw Community Post (Discord/Reddit)
 
-**Title:** AgentMesh — let your OpenClaw agent talk to other agents
+**Title:** Squad Klaw — let your OpenClaw agent talk to other agents
 
 Hey everyone — I built an open protocol that lets OpenClaw agents communicate with each other.
 
-Right now your agent is incredibly powerful but isolated. AgentMesh adds agent-to-agent discovery and messaging so your agent can:
+Right now your agent is incredibly powerful but isolated. Squad Klaw adds agent-to-agent discovery and messaging so your agent can:
 
 - Schedule meetings by talking to your friend's agent
 - Send messages through agent-to-agent channels
 - Negotiate with business agents (pricing, terms, etc.)
 - Request info from other agents
 
-It ships as an OpenClaw skill (`openclaw skills add agentmesh`) and the protocol is fully open source.
+It ships as an OpenClaw skill (`openclaw skills add squadklaw`) and the protocol is fully open source.
 
 Demo in the repo shows two agents negotiating a coffee meeting end-to-end.
 
-GitHub: https://github.com/arroyoc/agentmesh
+GitHub: https://github.com/arroyoc/squadklaw
 
 Looking for early adopters to test agent-to-agent scheduling. If you want to try connecting your agent, drop a comment.
 
@@ -116,7 +116,7 @@ Looking for early adopters to test agent-to-agent scheduling. If you want to try
 ## 4. Action Items
 
 - [ ] Enable GitHub Pages in repo settings (Settings → Pages → Source: GitHub Actions)
-- [ ] Buy domain: agentmesh.dev (Cloudflare or Namecheap)
+- [ ] Buy domain: squadklaw.dev (Cloudflare or Namecheap)
 - [ ] Post on HN (Tuesday or Wednesday morning, 8-9 AM ET is peak)
 - [ ] Post Twitter thread (same morning)
 - [ ] Post in OpenClaw Discord

@@ -2,25 +2,25 @@ import type { AgentCard, Message, MessageResponse, ErrorResponse } from "./types
 import { MessageSchema, AgentCardSchema, DirectoryQuerySchema } from "./schema.js";
 import { signMessage, verifyMessage, messageId, conversationId } from "./crypto.js";
 
-export interface AgentMeshClientOptions {
+export interface SquadKlawClientOptions {
   /** This agent's card */
   agentCard: AgentCard;
   /** This agent's private key (PEM) */
   privateKey: string;
-  /** Directory base URL (default: https://directory.agentmesh.dev/v1) */
+  /** Directory base URL (default: https://directory.squadklaw.dev/v1) */
   directoryUrl?: string;
 }
 
-export class AgentMeshClient {
+export class SquadKlawClient {
   private agentCard: AgentCard;
   private privateKey: string;
   private directoryUrl: string;
 
-  constructor(options: AgentMeshClientOptions) {
+  constructor(options: SquadKlawClientOptions) {
     this.agentCard = options.agentCard;
     this.privateKey = options.privateKey;
     this.directoryUrl =
-      options.directoryUrl ?? "https://directory.agentmesh.dev/v1";
+      options.directoryUrl ?? "https://directory.squadklaw.dev/v1";
   }
 
   /**
@@ -38,7 +38,7 @@ export class AgentMeshClient {
 
     if (!res.ok) {
       const err = await res.json();
-      throw new AgentMeshError(`Registration failed: ${err.error?.message ?? res.statusText}`, err);
+      throw new SquadKlawError(`Registration failed: ${err.error?.message ?? res.statusText}`, err);
     }
 
     return res.json();
@@ -61,7 +61,7 @@ export class AgentMeshClient {
 
     const res = await fetch(`${this.directoryUrl}/agents?${params}`);
     if (!res.ok) {
-      throw new AgentMeshError(`Discovery failed: ${res.statusText}`);
+      throw new SquadKlawError(`Discovery failed: ${res.statusText}`);
     }
 
     return res.json();
@@ -73,7 +73,7 @@ export class AgentMeshClient {
   async getAgent(agentId: string): Promise<AgentCard> {
     const res = await fetch(`${this.directoryUrl}/agents/${agentId}`);
     if (!res.ok) {
-      throw new AgentMeshError(`Agent lookup failed: ${res.statusText}`);
+      throw new SquadKlawError(`Agent lookup failed: ${res.statusText}`);
     }
     return res.json();
   }
@@ -88,7 +88,7 @@ export class AgentMeshClient {
     existingConversationId?: string
   ): Promise<MessageResponse | ErrorResponse> {
     const message: Omit<Message, "signature"> & { signature?: string } = {
-      agentmesh: "0.1.0",
+      squadklaw: "0.1.0",
       message_id: messageId(),
       conversation_id: existingConversationId ?? conversationId(),
       from: this.agentCard.agent_id,
@@ -134,12 +134,12 @@ export class AgentMeshClient {
   }
 }
 
-export class AgentMeshError extends Error {
+export class SquadKlawError extends Error {
   public details?: unknown;
 
   constructor(message: string, details?: unknown) {
     super(message);
-    this.name = "AgentMeshError";
+    this.name = "SquadKlawError";
     this.details = details;
   }
 }

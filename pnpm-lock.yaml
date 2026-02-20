@@ -27,12 +27,12 @@ importers:
 
   packages/directory:
     dependencies:
-      '@agentmesh/core':
-        specifier: workspace:*
-        version: link:../core
       '@hono/node-server':
         specifier: ^1.19.9
         version: 1.19.9(hono@4.12.0)
+      '@squadklaw/core':
+        specifier: workspace:*
+        version: link:../core
       hono:
         specifier: ^4.7.0
         version: 4.12.0
@@ -46,7 +46,7 @@ importers:
 
   packages/openclaw-skill:
     dependencies:
-      '@agentmesh/core':
+      '@squadklaw/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

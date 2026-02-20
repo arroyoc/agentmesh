@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
-import { AgentCardSchema, DirectoryQuerySchema, agentId } from "@agentmesh/core";
+import { AgentCardSchema, DirectoryQuerySchema, agentId } from "@squadklaw/core";
 import { AgentStore } from "./store.js";
 import type { StoredAgent } from "./store.js";
 import { createHash, randomBytes } from "node:crypto";
@@ -15,7 +15,7 @@ function hashToken(token: string): string {
 // Health check
 app.get("/", (c) => {
   return c.json({
-    name: "AgentMesh Directory",
+    name: "Squad Klaw Directory",
     version: "0.1.0",
     agents: store.count(),
   });
@@ -234,7 +234,7 @@ app.delete("/v1/agents/:id", (c) => {
 const port = parseInt(process.env.PORT ?? "3141", 10);
 
 serve({ fetch: app.fetch, port }, () => {
-  console.log(`AgentMesh Directory running on http://localhost:${port}`);
+  console.log(`Squad Klaw Directory running on http://localhost:${port}`);
 });
 
 export { app };

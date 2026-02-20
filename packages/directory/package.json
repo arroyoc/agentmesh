@@ -1,7 +1,7 @@
 {
-  "name": "@agentmesh/directory",
+  "name": "@squadklaw/directory",
   "version": "0.1.0",
-  "description": "AgentMesh directory server — agent registration and discovery",
+  "description": "Squad Klaw directory server — agent registration and discovery",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@agentmesh/core": "workspace:*",
+    "@squadklaw/core": "workspace:*",
     "@hono/node-server": "^1.19.9",
     "hono": "^4.7.0"
   },

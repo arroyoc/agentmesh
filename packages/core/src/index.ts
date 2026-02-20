@@ -45,5 +45,5 @@ export {
 export type { KeyPair } from "./crypto.js";
 
 // Client
-export { AgentMeshClient, AgentMeshError } from "./client.js";
-export type { AgentMeshClientOptions } from "./client.js";
+export { SquadKlawClient, SquadKlawError } from "./client.js";
+export type { SquadKlawClientOptions } from "./client.js";

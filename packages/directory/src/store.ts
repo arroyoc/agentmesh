@@ -1,4 +1,4 @@
-import type { AgentCard } from "@agentmesh/core";
+import type { AgentCard } from "@squadklaw/core";
 
 export interface StoredAgent {
   card: AgentCard;

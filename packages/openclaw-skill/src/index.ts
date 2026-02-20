@@ -2,15 +2,15 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import {
-  AgentMeshClient,
+  SquadKlawClient,
   generateKeyPair,
   agentId,
   STANDARD_INTENTS,
   type AgentCard,
   type KeyPair,
-} from "@agentmesh/core";
+} from "@squadklaw/core";
 
-const CONFIG_DIR = join(homedir(), ".agentmesh");
+const CONFIG_DIR = join(homedir(), ".squadklaw");
 const CARD_PATH = join(CONFIG_DIR, "agent-card.json");
 const KEY_PATH = join(CONFIG_DIR, "keypair.json");
 
@@ -30,7 +30,7 @@ export interface SkillConfig {
 }
 
 /**
- * Initialize AgentMesh for this OpenClaw instance.
+ * Initialize Squad Klaw for this OpenClaw instance.
  * Generates keys, creates an agent card, and saves config.
  */
 export function init(config: SkillConfig): { card: AgentCard; keys: KeyPair } {
@@ -49,7 +49,7 @@ export function init(config: SkillConfig): { card: AgentCard; keys: KeyPair } {
 
   // Build agent card
   const card: AgentCard = {
-    agentmesh: "0.1.0",
+    squadklaw: "0.1.0",
     agent_id: agentId(),
     name: config.name,
     description: config.description,
@@ -84,19 +84,19 @@ export function init(config: SkillConfig): { card: AgentCard; keys: KeyPair } {
 }
 
 /**
- * Create a connected AgentMesh client from saved config.
+ * Create a connected Squad Klaw client from saved config.
  */
-export function connect(directoryUrl?: string): AgentMeshClient {
+export function connect(directoryUrl?: string): SquadKlawClient {
   if (!existsSync(CARD_PATH) || !existsSync(KEY_PATH)) {
     throw new Error(
-      "AgentMesh not initialized. Run `openclaw skills add agentmesh` first."
+      "Squad Klaw not initialized. Run `openclaw skills add squadklaw` first."
     );
   }
 
   const card: AgentCard = JSON.parse(readFileSync(CARD_PATH, "utf-8"));
   const keys: KeyPair = JSON.parse(readFileSync(KEY_PATH, "utf-8"));
 
-  return new AgentMeshClient({
+  return new SquadKlawClient({
     agentCard: card,
     privateKey: keys.privateKey,
     directoryUrl,

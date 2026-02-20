@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-const AGENT_ID_PREFIX = "am_";
+const AGENT_ID_PREFIX = "sk_";
 const MESSAGE_ID_PREFIX = "msg_";
 const CONVERSATION_ID_PREFIX = "conv_";
 
 export const AgentCardSchema = z.object({
-  agentmesh: z.string(),
+  squadklaw: z.string(),
   agent_id: z.string().startsWith(AGENT_ID_PREFIX),
   name: z.string().min(1).max(256),
   description: z.string().max(1024).optional(),
@@ -37,7 +37,7 @@ export const AgentCardSchema = z.object({
 });
 
 export const MessageSchema = z.object({
-  agentmesh: z.string(),
+  squadklaw: z.string(),
   message_id: z.string().startsWith(MESSAGE_ID_PREFIX),
   conversation_id: z.string().startsWith(CONVERSATION_ID_PREFIX),
   from: z.string().startsWith(AGENT_ID_PREFIX),

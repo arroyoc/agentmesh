@@ -1,5 +1,5 @@
 export interface AgentCard {
-  agentmesh: string;
+  squadklaw: string;
   agent_id: string;
   name: string;
   description?: string;
@@ -25,7 +25,7 @@ export interface AgentCard {
 }
 
 export interface Message {
-  agentmesh: string;
+  squadklaw: string;
   message_id: string;
   conversation_id: string;
   from: string;
@@ -37,7 +37,7 @@ export interface Message {
 }
 
 export interface MessageResponse {
-  agentmesh: string;
+  squadklaw: string;
   message_id: string;
   conversation_id: string;
   from: string;

@@ -1,7 +1,7 @@
 {
-  "name": "@agentmesh/openclaw-skill",
+  "name": "@squadklaw/openclaw-skill",
   "version": "0.1.0",
-  "description": "AgentMesh skill for OpenClaw — agent-to-agent communication from your personal AI",
+  "description": "Squad Klaw skill for OpenClaw — agent-to-agent communication from your personal AI",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@agentmesh/core": "workspace:*"
+    "@squadklaw/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
